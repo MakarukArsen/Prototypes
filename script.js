@@ -14,9 +14,9 @@ class Student {
 
     // Створіть геттер оцінок this.marks, який повертає масив оцінок студента [5, 4, 4, 5]
     get getMarks() {
-        if(this.recover) {
+        if (this.recover) {
             return this.marks;
-        } else if(this.dismiss) {
+        } else if (this.dismiss) {
             return null;
         }
         return this.marks;
@@ -24,10 +24,10 @@ class Student {
 
     // Створіть сеттер оцінок this.marks = 5, який дозволяє поставити оцінку студенту. Після того, як оцінка поставлена, геттер повинен повернути масив this.marks -> [5, 4, 4, 5, 5]
     set setMark(value) {
-        if(this.recover) {
+        if (this.recover) {
             this.marks.push(value);
             return this.marks;
-        } else if(this.dismiss) {
+        } else if (this.dismiss) {
             return null;
         }
         this.marks.push(value);
@@ -36,24 +36,24 @@ class Student {
     // Створіть метод отримання середнього балу this.getAverageMark() -> 4.6
     get getAverageMark() {
         const result = (this.marks.reduce((prev, val) => prev += val) / this.marks.length).toFixed(1);
-        if(this.recover) {
+        if (this.recover) {
             return result;
-        } else if(this.dismiss) {
+        } else if (this.dismiss) {
             return null;
         }
-    return result;
+        return result;
     }
 
     // Створіть метод this.dismiss, який "виключить" студента. Після виклику цього методу – ставити студенту оцінки та отримувати їх більше не можна. (Ніяких помилок, просто повертається завжди null замість масиву оцінок)
     set dismissStudent(value) {
-        if(value){
+        if (value) {
             this.dismiss = true;
         }
     }
 
     // Створіть метод this.recover, який дозволить поновити студента
     set recoverStudent(value) {
-        if(value) {
+        if (value) {
             this.recover = true;
         }
     }
@@ -98,22 +98,22 @@ class BudgetStudent extends Student {
     constructor(university, course, fullName, marks, scholarShip) {
         super(university, course, fullName, marks);
         this.scholarShip = scholarShip
-        setInterval(function() {
+        setInterval(function () {
             const timer = this.getScholarShip()
             return timer
-        }.bind(this), 3000)
+        }.bind(this), 30000)
     }
     getScholarShip() {
-        if(this.recover) {
-            if(this.getAverageMark >= 4) {
+        if (this.recover) {
+            if (this.getAverageMark >= 4) {
                 return console.log(`Ви отримали ${this.scholarShip} грн. стипендії, Ура!`);
             } else {
                 return "Треба було краще вчитись!!!";
             }
-        }else if(this.dismiss) {
+        } else if (this.dismiss) {
             return console.log("Вас виключено!!!");
         }
-        if(this.getAverageMark >= 4) {
+        if (this.getAverageMark >= 4) {
             return console.log(`Ви отримали ${this.scholarShip} грн. стипендії, Ура!`);
         } else {
             return console.log("Треба було краще вчитись!!!");
