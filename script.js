@@ -125,6 +125,6 @@ const budgetStudentInfo = new BudgetStudent("Вищой Школи Програ�
 
 console.log("")
 console.log("Advance перевірки:")
-budgetStudentInfo.dismiss = true;
+budgetStudentInfo.dismiss = false;
 budgetStudentInfo.recover = false;
 console.log(budgetStudentInfo.getInfo());
