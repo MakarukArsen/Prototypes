@@ -100,7 +100,8 @@ class BudgetStudent extends Student {
         this.scholarShip = scholarShip
         setInterval(function() {
             const timer = this.getScholarShip()
-        }.bind(this), 30000)
+            return timer
+        }.bind(this), 3000)
     }
     getScholarShip() {
         if(this.recover) {
@@ -110,12 +111,12 @@ class BudgetStudent extends Student {
                 return "Треба було краще вчитись!!!";
             }
         }else if(this.dismiss) {
-            return null;
+            return console.log("Вас виключено!!!");
         }
         if(this.getAverageMark >= 4) {
             return console.log(`Ви отримали ${this.scholarShip} грн. стипендії, Ура!`);
         } else {
-            return "Треба було краще вчитись!!!";
+            return console.log("Треба було краще вчитись!!!");
         }
     }
 }
@@ -124,6 +125,6 @@ const budgetStudentInfo = new BudgetStudent("Вищой Школи Програ�
 
 console.log("")
 console.log("Advance перевірки:")
-budgetStudentInfo.dismiss = false;
-budgetStudentInfo.recover = true;
+budgetStudentInfo.dismiss = true;
+budgetStudentInfo.recover = false;
 console.log(budgetStudentInfo.getInfo());
