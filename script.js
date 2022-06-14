@@ -118,9 +118,6 @@ const budgetStudentInfo = new BudgetStudent("Вищой Школи Програ�
 console.log("")
 console.log("Advance перевірки:")
 console.log("")
-budgetStudentInfo.dismissed = false;
-budgetStudentInfo.recover = false;
-console.log(budgetStudentInfo.getInfo());
 
 // Перевірки до виключення:
 console.log("Перевірки до виключення / поновлення студента:")
