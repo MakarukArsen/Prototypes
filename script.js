@@ -4,8 +4,7 @@ class Student {
         this.course = course;
         this.fullName = fullName;
         this.marks = marks;
-        this.dismiss = false;
-        this.recover = false;
+        this.dismissed = false;
     }
     // Створіть метод this.getInfo() -> "Студент 1го курсу Вищої Школи Психотерапії м.Одеса, Остап Родоманський Бендер", метод повертає сукупну інформацію про курс, учбовий заклад та імені студента.
     getInfo() {
@@ -14,9 +13,7 @@ class Student {
 
     // Створіть геттер оцінок this.marks, який повертає масив оцінок студента [5, 4, 4, 5]
     get getMarks() {
-        if (this.recover) {
-            return this.marks;
-        } else if (this.dismiss) {
+        if (this.dismissed) {
             return null;
         }
         return this.marks;
@@ -24,10 +21,7 @@ class Student {
 
     // Створіть сеттер оцінок this.marks = 5, який дозволяє поставити оцінку студенту. Після того, як оцінка поставлена, геттер повинен повернути масив this.marks -> [5, 4, 4, 5, 5]
     set setMark(value) {
-        if (this.recover) {
-            this.marks.push(value);
-            return this.marks;
-        } else if (this.dismiss) {
+        if (this.dismissed) {
             return null;
         }
         this.marks.push(value);
@@ -36,25 +30,23 @@ class Student {
     // Створіть метод отримання середнього балу this.getAverageMark() -> 4.6
     get getAverageMark() {
         const result = (this.marks.reduce((prev, val) => prev += val) / this.marks.length).toFixed(1);
-        if (this.recover) {
-            return result;
-        } else if (this.dismiss) {
+        if (this.dismissed) {
             return null;
         }
         return result;
     }
 
-    // Створіть метод this.dismiss, який "виключить" студента. Після виклику цього методу – ставити студенту оцінки та отримувати їх більше не можна. (Ніяких помилок, просто повертається завжди null замість масиву оцінок)
-    set dismissStudent(value) {
+    // Створіть метод this.dismissed, який "виключить" студента. Після виклику цього методу – ставити студенту оцінки та отримувати їх більше не можна. (Ніяких помилок, просто повертається завжди null замість масиву оцінок)
+    set dismissedStudent(value) {
         if (value) {
-            this.dismiss = true;
+            this.dismissed = true;
         }
     }
 
     // Створіть метод this.recover, який дозволить поновити студента
     set recoverStudent(value) {
         if (value) {
-            this.recover = true;
+            this.dismissed = false;
         }
     }
 }
@@ -62,7 +54,7 @@ const studentInfo = new Student("Вищої Школи Психотерапії"
 
 // Перевірки до виключення:
 console.log("Перевірки до виключення / поновлення студента:")
-studentInfo.dismissStudent = false;
+studentInfo.dismissedStudent = false;
 studentInfo.recoverStudent = false;
 console.log(studentInfo.getInfo());
 console.log(studentInfo.getMarks);
@@ -73,7 +65,7 @@ console.log(studentInfo.getAverageMark);
 // Перевірки після виключення студента:
 console.log("")
 console.log("Перевірки після виключення студента:")
-studentInfo.dismissStudent = true;
+studentInfo.dismissedStudent = true;
 studentInfo.recoverStudent = false;
 console.log(studentInfo.getInfo());
 console.log(studentInfo.getMarks);
@@ -84,7 +76,7 @@ console.log(studentInfo.getAverageMark);
 // Перевірки після поновлення студента:
 console.log("")
 console.log("Перевірки після поновлення студента:")
-studentInfo.dismissStudent = true;
+studentInfo.dismissedStudent = true;
 studentInfo.recoverStudent = true;
 console.log(studentInfo.getInfo());
 console.log(studentInfo.getMarks);
@@ -110,7 +102,7 @@ class BudgetStudent extends Student {
             } else {
                 return "Треба було краще вчитись!!!";
             }
-        } else if (this.dismiss) {
+        } else if (this.dismissed) {
             return console.log("Вас виключено!!!");
         }
         if (this.getAverageMark >= 4) {
@@ -125,6 +117,39 @@ const budgetStudentInfo = new BudgetStudent("Вищой Школи Програ�
 
 console.log("")
 console.log("Advance перевірки:")
-budgetStudentInfo.dismiss = false;
+console.log("")
+budgetStudentInfo.dismissed = false;
 budgetStudentInfo.recover = false;
 console.log(budgetStudentInfo.getInfo());
+
+// Перевірки до виключення:
+console.log("Перевірки до виключення / поновлення студента:")
+budgetStudentInfo.dismissedStudent = false;
+budgetStudentInfo.recoverStudent = false;
+console.log(budgetStudentInfo.getInfo());
+console.log(budgetStudentInfo.getMarks);
+budgetStudentInfo.setMark = 5;
+console.log(budgetStudentInfo.getMarks);
+console.log(budgetStudentInfo.getAverageMark);
+
+// Перевірки після виключення студента:
+console.log("")
+console.log("Перевірки після виключення студента:")
+budgetStudentInfo.dismissedStudent = true;
+budgetStudentInfo.recoverStudent = false;
+console.log(budgetStudentInfo.getInfo());
+console.log(budgetStudentInfo.getMarks);
+budgetStudentInfo.setMark = 5;
+console.log(budgetStudentInfo.getMarks);
+console.log(budgetStudentInfo.getAverageMark);
+
+// Перевірки після поновлення студента:
+console.log("")
+console.log("Перевірки після поновлення студента:")
+budgetStudentInfo.dismissededStudent = true;
+budgetStudentInfo.recoverStudent = true;
+console.log(budgetStudentInfo.getInfo());
+console.log(budgetStudentInfo.getMarks);
+budgetStudentInfo.setMark = 5;
+console.log(budgetStudentInfo.getMarks);
+console.log(budgetStudentInfo.getAverageMark);
