@@ -38,7 +38,7 @@ class Student {
 
     // Створіть метод this.dismissed, який "виключить" студента. Після виклику цього методу – ставити студенту оцінки та отримувати їх більше не можна. (Ніяких помилок, просто повертається завжди null замість масиву оцінок)
     set dismissedStudent(value) {
-        if (value) {
+        if (value === true || value === null) {
             this.dismissed = true;
         }
     }
@@ -63,7 +63,7 @@ console.log(studentInfo.getMarks);
 console.log(studentInfo.getAverageMark);
 
 // Перевірки після виключення студента:
-console.log("")
+console.log("");
 console.log("Перевірки після виключення студента:")
 studentInfo.dismissedStudent = true;
 studentInfo.recoverStudent = false;
@@ -74,8 +74,8 @@ console.log(studentInfo.getMarks);
 console.log(studentInfo.getAverageMark);
 
 // Перевірки після поновлення студента:
-console.log("")
-console.log("Перевірки після поновлення студента:")
+console.log("");
+console.log("Перевірки після поновлення студента:");
 studentInfo.dismissedStudent = true;
 studentInfo.recoverStudent = true;
 console.log(studentInfo.getInfo());
@@ -89,39 +89,35 @@ console.log(studentInfo.getAverageMark);
 class BudgetStudent extends Student {
     constructor(university, course, fullName, marks, scholarShip) {
         super(university, course, fullName, marks);
-        this.scholarShip = scholarShip
+        this.scholarShip = scholarShip;
         setInterval(function () {
-            const timer = this.getScholarShip()
-            return timer
-        }.bind(this), 30000)
+            const timer = this.getScholarShip();
+            return timer;
+        }.bind(this), 1000);
     }
-    getScholarShip() {
-        if (this.recover) {
-            if (this.getAverageMark >= 4) {
-                return console.log(`Ви отримали ${this.scholarShip} грн. стипендії, Ура!`);
-            } else {
-                return "Треба було краще вчитись!!!";
-            }
-        } else if (this.dismissed) {
-            return console.log("Вас виключено!!!");
-        }
+    checkMarks(){
         if (this.getAverageMark >= 4) {
             return console.log(`Ви отримали ${this.scholarShip} грн. стипендії, Ура!`);
-        } else {
-            return console.log("Треба було краще вчитись!!!");
         }
+        return console.log("Треба було краще вчитись!!!");
+    }
+    getScholarShip() {
+        if (this.dismissed) {
+            return console.log("Вас виключено!!!");
+        }
+        this.checkMarks();
     }
 }
 
 const budgetStudentInfo = new BudgetStudent("Вищой Школи Програмування Cursor", "Студент 2-го курсу", "Арсен Макарук", [5, 4, 4, 5], 2000);
 
-console.log("")
-console.log("Advance перевірки:")
-console.log("")
+console.log("");
+console.log("Advance перевірки:");
+console.log("");
 
 // Перевірки до виключення:
-console.log("Перевірки до виключення / поновлення студента:")
-budgetStudentInfo.dismissedStudent = false;
+console.log("Перевірки до виключення / поновлення студента:");
+budgetStudentInfo.dismissedStudent = null;
 budgetStudentInfo.recoverStudent = false;
 console.log(budgetStudentInfo.getInfo());
 console.log(budgetStudentInfo.getMarks);
@@ -130,8 +126,8 @@ console.log(budgetStudentInfo.getMarks);
 console.log(budgetStudentInfo.getAverageMark);
 
 // Перевірки після виключення студента:
-console.log("")
-console.log("Перевірки після виключення студента:")
+console.log("");
+console.log("Перевірки після виключення студента:");
 budgetStudentInfo.dismissedStudent = true;
 budgetStudentInfo.recoverStudent = false;
 console.log(budgetStudentInfo.getInfo());
@@ -141,9 +137,9 @@ console.log(budgetStudentInfo.getMarks);
 console.log(budgetStudentInfo.getAverageMark);
 
 // Перевірки після поновлення студента:
-console.log("")
-console.log("Перевірки після поновлення студента:")
-budgetStudentInfo.dismissededStudent = true;
+console.log("");
+console.log("Перевірки після поновлення студента:");
+budgetStudentInfo.dismissedStudent = true;
 budgetStudentInfo.recoverStudent = true;
 console.log(budgetStudentInfo.getInfo());
 console.log(budgetStudentInfo.getMarks);
